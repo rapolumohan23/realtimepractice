@@ -5,8 +5,8 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy source file
-COPY hello.js .
+COPY app.js .
 
 # Run the script
-CMD ["node", "hello.js"]
+CMD ["node", "app.js"]
 
