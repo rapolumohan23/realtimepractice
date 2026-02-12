@@ -1,34 +1,33 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "app"
+        IMAGE_TAG  = "latest"
+    }
+
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo "Cloning GitHub repository..."
                 checkout scm
             }
         }
 
-        stage('Verify Workspace') {
+        stage('Build Docker Image') {
             steps {
-                echo "Listing files in workspace"
-                sh 'ls -l'
-            }
-        }
-
-        stage('Test Step') {
-            steps {
-                echo "Pipeline is working successfully!"
+                script {
+                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                }
             }
         }
     }
 
     post {
         success {
-            echo "✅ Jenkins pipeline executed successfully"
+            echo "Docker image built successfully 🎉"
         }
         failure {
-            echo "❌ Jenkins pipeline failed"
+            echo "Build failed ❌"
         }
     }
 }
