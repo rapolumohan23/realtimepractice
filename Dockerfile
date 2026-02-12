@@ -4,7 +4,6 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app 
 
-
 # Copy source file
 COPY app.js .
 EXPOSE 6000
