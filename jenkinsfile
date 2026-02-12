@@ -1,14 +1,11 @@
 pipeline {
-    agent any {
-           
-    }
+    agent any
 
     stages {
-        stage('Build Docker Image') {
+        stage('Docker Build') {
             steps {
-                sh 'docker build -t hello-node-app:latest .'
+                sh 'docker build -t demo-app:latest .'
             }
         }
     }
 }
-
