@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy source file
 COPY app.js .
-EXPOSE 6000
+EXPOSE 7000
 
 # Run the script
 CMD ["node", "app.js"]
