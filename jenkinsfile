@@ -2,11 +2,25 @@ pipeline {
     agent any
 
     stages {
-        stage('Docker Build') {
+
+        stage('Git Clone') {
             steps {
-                sh 'docker build -t demo-app:latest .'
-                sh 'docker run -p 7000:7000 demo-app:latest'
+                git branch: 'dev',
+                    url: 'https://github.com/rapolumohan23/realtimepractice.git'
             }
         }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t my-app:latest .'
+            }
+        }
+
     }
 }
