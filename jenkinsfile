@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "node-app"
+        TAG = "latest"
+    }
+
     stages {
 
         stage('Git Clone') {
@@ -12,13 +17,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'npm install'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t my-app:latest .'
+                sh 'docker build -t ${IMAGE_NAME}:${TAG} .'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh 'docker run -d -p 3000:3000 --name node-container ${IMAGE_NAME}:${TAG}'
             }
         }
 
