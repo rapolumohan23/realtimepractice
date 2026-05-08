@@ -1,13 +1,14 @@
-# Use official Node.js image
-FROM node:18-alpine
+FROM node:18
 
-# Set working directory
-WORKDIR /app 
+WORKDIR /app
 
-# Copy source file
-COPY app.js .
-EXPOSE 7000
+COPY package*.json ./
 
-# Run the script
-CMD ["node", "app.js"]
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm","start"]
 
